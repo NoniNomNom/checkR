@@ -2,6 +2,20 @@ library(shiny)
 library(lubridate)
 library(DT)
 
+daysfr <- function(x) {
+  
+  if (x == "Monday") {return("lundi")} else
+    if (x == "Tuesday") {return("mardi")} else
+      if (x == "Wednesday") {return("mercredi")} else
+        if (x == "Thursday") {return("jeudi")} else
+          if (x == "Friday") {return("vendredi")} else
+            if (x == "Saturday") {return("samedi")} else
+              if (x == "Sunday") {return("dimanche")} else
+                
+                return(x)
+  
+}
+
 load("data/db.Rdata")
 
 shinyServer(function(input, output, session) {
@@ -18,7 +32,7 @@ shinyServer(function(input, output, session) {
   date <- reactive(today())
   
   output$date_txt <- renderText(paste0("Nous sommes le ", 
-                                       weekdays(date()), 
+                                       daysfr(weekdays(date())), 
                                        " ", 
                                        format(date(), "%d"),
                                        "/",
