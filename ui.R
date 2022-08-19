@@ -1,3 +1,5 @@
+load("data/db.Rdata")
+
 ui <- fluidPage(
   
   tags$style("
