@@ -77,20 +77,34 @@ shinyServer(function(input, output, session) {
       dbmaj(db2)
       saveData(dbmaj())
       loadData()
-      print("ok") }
+      print("ok")}
   })
+  
+  diff <- reactive({date() - head(dbmaj(), 1)$Jour})
   
   observe({
     
-    if (date() > head(dbmaj(), 1)$Jour) {
+    if (diff() > 0) {
+      
       db3 <- dbmaj()
-      db3 <- rbind(data.frame(Jour = date(), Pris = "Non"), dbmaj())
-      dbmaj(db3)
-      saveData(dbmaj())
-      loadData()
-      print("ok")
+      diff2 <- diff()
+      
+      for (i in 1:diff2) {
+        
+        x <- diff2 - 1
+        print(x)
+        db3 <- rbind(data.frame(Jour = date() - x, Pris = "Non"), db3)
+        diff2 <- diff2 - 1
+        dbmaj(db3)
+        saveData(dbmaj())
+        loadData()
+
+      }
+
+      print(diff())
       
     }
   })
+  
 }
 )
