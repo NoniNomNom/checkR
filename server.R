@@ -4,7 +4,7 @@ library(DT)
 
 load("data/db.Rdata")
 
-server <- function(input, output, session) {
+shinyServer(function(input, output, session) {
   
   rowsum <- reactive(sum(input$dbshow_rows_selected))
   
@@ -28,7 +28,7 @@ server <- function(input, output, session) {
   
   dbmaj <- reactiveVal(db)
   
-  output$dbshow <- renderDT(datatable(dbmaj(),
+  output$dbshow <- DT::renderDT(datatable(dbmaj(),
                                       options = list(dom = 'tpl')) %>% formatStyle(
                                         'Pris',
                                         target = 'row',
@@ -79,3 +79,4 @@ server <- function(input, output, session) {
     }
   })
 }
+)

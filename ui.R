@@ -1,6 +1,4 @@
-load("data/db.Rdata")
-
-ui <- fluidPage(
+shinyUI(fluidPage(
   
   tags$style("
       .checkbox {
@@ -29,4 +27,5 @@ ui <- fluidPage(
          align = "center",
          actionButton("valider", "Valider")),
   dataTableOutput("dbshow")
+)
 )
